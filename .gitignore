@@ -4,6 +4,7 @@
 # Own stuff
 data
 figs
+.idea
 
 # Mac Stuff 
 *.DS_Store
