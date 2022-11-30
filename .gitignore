@@ -5,6 +5,7 @@
 data
 figs
 .idea
+.vscode
 
 # Mac Stuff 
 *.DS_Store
