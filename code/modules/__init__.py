@@ -1,1 +1,1 @@
-__all__ = ["4afc_prepro"]
+__all__ = ["4afc_prepro", "functions"]
