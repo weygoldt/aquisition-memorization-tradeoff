@@ -31,3 +31,4 @@ fig, ax = plt.subplots(1, 1, figsize=(6, 4))
 ax.plot(x, y, 'o')
 ax.plot(x_fit, y_fit, '-')
 plt.show()
+# some stuff
