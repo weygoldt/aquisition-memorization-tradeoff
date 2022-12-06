@@ -29,7 +29,7 @@ class prnt:
         print(string)
 
 
-def prepro(dataroot):
+def prepro(dataroot, processed_dataroot):
     """
     main summarizes the output of the 4afc experiment into a single csv file
     for easier analysis.
@@ -115,14 +115,18 @@ def prepro(dataroot):
     # convert the whole shit to a pandas dataframe
     df = pd.DataFrame(d)
 
-    # save dataframe to csv
-    df.to_csv(f"{dataroot}/4afc_all.csv")
+    if os.path.exists(processed_dataroot) == False:
+        os.mkdir(processed_dataroot)
 
-    if os.path.exists(f"{dataroot}/4afc_all.csv"):
+    # save dataframe to csv
+    df.to_csv(f"{processed_dataroot}/4afc_all.csv")
+
+    if os.path.exists(f"{processed_dataroot}/4afc_all.csv"):
         prnt.succ("Output file created or exists already!")
 
 
 if __name__ == "__main__":
 
-    dataroot = Path('../data/test/4afc')  # root data directory
-    prepro(dataroot)
+    dataroot = Path('../data/4afc')  # root data directory
+    processed_dataroot = Path('../data_processed')
+    prepro(dataroot, processed_dataroot)
