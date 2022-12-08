@@ -30,7 +30,7 @@ def dataimport(dataroot: str, processed_dataroot: str) -> pd.DataFrame:
         # add row with subject name
         df["subj"] = [name for i in range(df.shape[0])]
         df["strat_idx"] = df.tpertrial / df.switches
-        df["iserror"] = df.correctno!=df.selected
+        df["iserror"] = np.array(df.correctno!=df.selected, dtype=int)
 
         dfs.append(df)
 
