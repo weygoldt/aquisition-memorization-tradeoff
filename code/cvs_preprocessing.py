@@ -45,7 +45,7 @@ processed_dataroot = Path('../data_processed')
 df = dataimport(dataroot, processed_dataroot)
 
 # delete JONA!
-df = df[df.subj != 'VP1']
+# df = df[df.subj != 'VP1']
 
 # compute statistics irrespective of delay
 
@@ -140,6 +140,7 @@ plt.show()
 sems_high = sems
 means_high = means
 
-for i in range(len(sems_high)):
-    plt.errorbar(, minidf.tpertrial_means,
-                 xerr=minidf.switches_sems, yerr=minidf.tpertrial_sems, label=name, color=color)
+# for i in range(len(sems_high)):
+#     plt.errorbar(, minidf.tpertrial_means,
+#                  xerr=minidf.switches_sems, yerr=minidf.tpertrial_sems, label=name, color=color)
+#
