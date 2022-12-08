@@ -5,7 +5,7 @@
 figs
 .idea
 .vscode
-
+vwmenv
 # Mac Stuff 
 *.DS_Store
 
