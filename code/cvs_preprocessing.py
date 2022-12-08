@@ -30,12 +30,13 @@ def dataimport(dataroot: str, processed_dataroot: str) -> pd.DataFrame:
         # add row with subject name
         df["subj"] = [name for i in range(df.shape[0])]
         df["strat_idx"] = df.tpertrial / df.switches
+        df["iserror"] = df.correctno!=df.selected
 
         dfs.append(df)
 
     # concatenate dfs for all subjects
     data = pd.concat(dfs, ignore_index=True)
-    data.strat_idx = data.strat_idx/(data.strat_idx.max()-data.strat_idx.min() )
+    data.strat_idx = data.strat_idx/(data.strat_idx.max()-data.strat_idx.min())
 
     # save df to csv
     filename = f"{processed_dataroot}/cvs.csv"
