@@ -48,135 +48,136 @@ def dataimport(dataroot: str, processed_dataroot: str) -> pd.DataFrame:
     return df
 
 
-colors = mcolors.TABLEAU_COLORS
+if __name__ == '__main__':
+    colors = mcolors.TABLEAU_COLORS
 
-# import the data
-dataroot = Path("data/cvs")
-processed_dataroot = Path("data_processed")
-df = dataimport(dataroot, processed_dataroot)
+    # import the data
+    dataroot = Path("data/cvs")
+    processed_dataroot = Path("data_processed")
+    df = dataimport(dataroot, processed_dataroot)
 
-# delete JONA!
-# df = df[df.subj != 'VP1']
+    # delete JONA!
+    # df = df[df.subj != 'VP1']
 
-# compute statistics irrespective of delay
+    # compute statistics irrespective of delay
 
-# means and sem for trial duration
-names = np.unique(df.subj).tolist()
-n = df.shape[1] / len(names)
-means = np.array(df.tpertrial.groupby(df.subj).mean())
-sems = np.array(df.tpertrial.groupby(df.subj).std()) / np.sqrt(n)
+    # means and sem for trial duration
+    names = np.unique(df.subj).tolist()
+    n = df.shape[1] / len(names)
+    means = np.array(df.tpertrial.groupby(df.subj).mean())
+    sems = np.array(df.tpertrial.groupby(df.subj).std()) / np.sqrt(n)
 
-# put to dataframe
-df_all = pd.DataFrame(
-    list(zip(names, means, sems)),
-    columns=("names", "tpertrial_means", "tpertrial_sems"),
-)
-
-# means and sems for no of switches
-means = np.array(df.switches.groupby(df.subj).mean())
-sems = np.array(df.switches.groupby(df.subj).std()) / np.sqrt(n)
-df_all["switches_means"] = means
-df_all["switches_sems"] = sems
-
-# plot data for all subjects
-for name, color in zip(df_all.names, colors):
-    minidf = df_all[df_all.names == name]
-    plt.errorbar(
-        minidf.switches_means,
-        minidf.tpertrial_means,
-        xerr=minidf.switches_sems,
-        yerr=minidf.tpertrial_sems,
-        fmt="bo",
-        label=name,
-        color=color,
-    )
-plt.legend()
-plt.show()
-
-# repeat analysis for no duration and 2 seconds duration
-df_low = df[df.delay == 0]
-
-# means and sem for trial duration
-names = np.unique(df_low.subj).tolist()
-n = df_low.shape[1] / len(names)
-means = np.array(df_low.tpertrial.groupby(df_low.subj).mean())
-sems = np.array(df_low.tpertrial.groupby(df_low.subj).std()) / np.sqrt(n)
-
-# put to dataframe
-df_all = pd.DataFrame(
-    list(zip(names, means, sems)),
-    columns=("names", "tpertrial_means", "tpertrial_sems"),
-)
-
-# means and sems for no of switches
-means = np.array(df_low.switches.groupby(df_low.subj).mean())
-sems = np.array(df_low.switches.groupby(df_low.subj).std()) / np.sqrt(n)
-df_all["switches_means"] = means
-df_all["switches_sems"] = sems
-
-# plot data for all subjects
-for name, color in zip(df_all.names, colors):
-    minidf = df_all[df_all.names == name]
-    plt.errorbar(
-        minidf.switches_means,
-        minidf.tpertrial_means,
-        xerr=minidf.switches_sems,
-        yerr=minidf.tpertrial_sems,
-        label=name,
-        color=color,
-    )
-plt.legend()
-plt.show()
-
-sems_low = sems
-means_low = means
-
-
-# repeat analysis for no duration and 2 seconds duration
-df_low = df[df.delay == 1.5]
-
-# means and sem for trial duration
-names = np.unique(df_low.subj).tolist()
-n = df_low.shape[1] / len(names)
-means = np.array(df_low.tpertrial.groupby(df_low.subj).mean())
-sems = np.array(df_low.tpertrial.groupby(df_low.subj).std()) / np.sqrt(n)
-
-# put to dataframe
-df_all = pd.DataFrame(
-    list(zip(names, means, sems)),
-    columns=("names", "tpertrial_means", "tpertrial_sems"),
-)
-
-# means and sems for no of switches
-means = np.array(df_low.switches.groupby(df_low.subj).mean())
-sems = np.array(df_low.switches.groupby(df_low.subj).std()) / np.sqrt(n)
-df_all["switches_means"] = means
-df_all["switches_sems"] = sems
-
-# plot data for all subjects
-for name, color in zip(df_all.names, colors):
-    minidf = df_all[df_all.names == name]
-
-    print(minidf.tpertrial_sems)
-    print(minidf.switches_sems)
-
-    plt.errorbar(
-        minidf.switches_means,
-        minidf.tpertrial_means,
-        xerr=minidf.switches_sems,
-        yerr=minidf.tpertrial_sems,
-        label=name,
-        color=color,
+    # put to dataframe
+    df_all = pd.DataFrame(
+        list(zip(names, means, sems)),
+        columns=("names", "tpertrial_means", "tpertrial_sems"),
     )
 
-plt.legend()
-plt.show()
+    # means and sems for no of switches
+    means = np.array(df.switches.groupby(df.subj).mean())
+    sems = np.array(df.switches.groupby(df.subj).std()) / np.sqrt(n)
+    df_all["switches_means"] = means
+    df_all["switches_sems"] = sems
+
+    # plot data for all subjects
+    for name, color in zip(df_all.names, colors):
+        minidf = df_all[df_all.names == name]
+        plt.errorbar(
+            minidf.switches_means,
+            minidf.tpertrial_means,
+            xerr=minidf.switches_sems,
+            yerr=minidf.tpertrial_sems,
+            fmt="bo",
+            label=name,
+            color=color,
+        )
+    plt.legend()
+    plt.show()
+
+    # repeat analysis for no duration and 2 seconds duration
+    df_low = df[df.delay == 0]
+
+    # means and sem for trial duration
+    names = np.unique(df_low.subj).tolist()
+    n = df_low.shape[1] / len(names)
+    means = np.array(df_low.tpertrial.groupby(df_low.subj).mean())
+    sems = np.array(df_low.tpertrial.groupby(df_low.subj).std()) / np.sqrt(n)
+
+    # put to dataframe
+    df_all = pd.DataFrame(
+        list(zip(names, means, sems)),
+        columns=("names", "tpertrial_means", "tpertrial_sems"),
+    )
+
+    # means and sems for no of switches
+    means = np.array(df_low.switches.groupby(df_low.subj).mean())
+    sems = np.array(df_low.switches.groupby(df_low.subj).std()) / np.sqrt(n)
+    df_all["switches_means"] = means
+    df_all["switches_sems"] = sems
+
+    # plot data for all subjects
+    for name, color in zip(df_all.names, colors):
+        minidf = df_all[df_all.names == name]
+        plt.errorbar(
+            minidf.switches_means,
+            minidf.tpertrial_means,
+            xerr=minidf.switches_sems,
+            yerr=minidf.tpertrial_sems,
+            label=name,
+            color=color,
+        )
+    plt.legend()
+    plt.show()
+
+    sems_low = sems
+    means_low = means
 
 
-sems_high = sems
-means_high = means
+    # repeat analysis for no duration and 2 seconds duration
+    df_low = df[df.delay == 1.5]
 
-# for i in range(len(sems_high)):
-#     plt.errorbar(, minidf.tpertrial_means,
-#                  xerr=minidf.switches_sems, yerr=minidf.tpertrial_sems, label=name, color=color)
-#
+    # means and sem for trial duration
+    names = np.unique(df_low.subj).tolist()
+    n = df_low.shape[1] / len(names)
+    means = np.array(df_low.tpertrial.groupby(df_low.subj).mean())
+    sems = np.array(df_low.tpertrial.groupby(df_low.subj).std()) / np.sqrt(n)
+
+    # put to dataframe
+    df_all = pd.DataFrame(
+        list(zip(names, means, sems)),
+        columns=("names", "tpertrial_means", "tpertrial_sems"),
+    )
+
+    # means and sems for no of switches
+    means = np.array(df_low.switches.groupby(df_low.subj).mean())
+    sems = np.array(df_low.switches.groupby(df_low.subj).std()) / np.sqrt(n)
+    df_all["switches_means"] = means
+    df_all["switches_sems"] = sems
+
+    # plot data for all subjects
+    for name, color in zip(df_all.names, colors):
+        minidf = df_all[df_all.names == name]
+
+        print(minidf.tpertrial_sems)
+        print(minidf.switches_sems)
+
+        plt.errorbar(
+            minidf.switches_means,
+            minidf.tpertrial_means,
+            xerr=minidf.switches_sems,
+            yerr=minidf.tpertrial_sems,
+            label=name,
+            color=color,
+        )
+
+    plt.legend()
+    plt.show()
+
+
+    sems_high = sems
+    means_high = means
+
+    # for i in range(len(sems_high)):
+    #     plt.errorbar(, minidf.tpertrial_means,
+    #                  xerr=minidf.switches_sems, yerr=minidf.tpertrial_sems, label=name, color=color)
+    #
