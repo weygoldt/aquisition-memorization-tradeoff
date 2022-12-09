@@ -7,36 +7,47 @@ import numpy as np
 import pandas as pd
 
 
+def norm(x):
+    return x/(x.max()-x.min())
+
+
 def dataimport(dataroot: str, processed_dataroot: str) -> pd.DataFrame:
 
     dfs = []
     for i, file in enumerate(os.listdir(dataroot)):
 
-        path = f"{dataroot}/{file}"
-        name = file.split("-")[0]
 
-        df = pd.read_excel(path, header=None)
-        df.columns = [
-            "trialno",
-            "correctno",
-            "delay",
-            "cpd",
-            "selected",
-            "totdur",
-            "switches",
-            "tpertrial",
-        ]
+        if 'VP1' in file:
+            continue
 
-        # add row with subject name
-        df["subj"] = [name for i in range(df.shape[0])]
-        df["strat_idx"] = df.tpertrial / df.switches
-        df["iserror"] = np.array(df.correctno!=df.selected, dtype=int)
+        else:
 
-        dfs.append(df)
+            path = f"{dataroot}/{file}"
+            name = file.split("-")[0]
+
+            df = pd.read_excel(path, header=None)
+            df.columns = [
+                "trialno",
+                "correctno",
+                "delay",
+                "cpd",
+                "selected",
+                "totdur",
+                "switches",
+                "tpertrial",
+            ]
+
+            # add row with subject name
+            df["subj"] = [name for i in range(df.shape[0])]
+            df["iserror"] = np.array(df.correctno!=df.selected, dtype=int)
+
+            dfs.append(df)
 
     # concatenate dfs for all subjects
     data = pd.concat(dfs, ignore_index=True)
-    data.strat_idx = data.strat_idx/(data.strat_idx.max()-data.strat_idx.min())
+#    data.strat_idx = 1-data.strat_idx/(0.5*(data.strat_idx.max()-data.strat_idx.min()))
+
+    data["strat_idx"] = norm(norm(data.tpertrial)/norm(data.switches))
 
     # save df to csv
     filename = f"{processed_dataroot}/cvs.csv"
