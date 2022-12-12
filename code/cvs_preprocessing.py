@@ -64,8 +64,8 @@ if __name__ == '__main__':
     colors = mcolors.TABLEAU_COLORS
 
     # import the data
-    dataroot = Path("data/cvs")
-    processed_dataroot = Path("data_processed")
+    dataroot = Path("../data/cvs")
+    processed_dataroot = Path("../data_processed")
     df = dataimport(dataroot, processed_dataroot)
 
     # delete JONA!

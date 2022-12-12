@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def figsave(path: str) -> None:
+    plt.savefig(f"{path}.svg")
+    plt.savefig(f"{path}.pdf")
+
 def exec_timer(function):
     """
     exec_timer is a decorator function to print the execution time of another function.
