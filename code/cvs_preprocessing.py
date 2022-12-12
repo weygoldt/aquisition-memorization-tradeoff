@@ -60,6 +60,7 @@ def dataimport(dataroot: str, processed_dataroot: str) -> pd.DataFrame:
 
 
 if __name__ == '__main__':
+    
     colors = mcolors.TABLEAU_COLORS
 
     # import the data
