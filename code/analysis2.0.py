@@ -31,6 +31,10 @@ for i in cpds:
 print('response time')
 print(resp_time)
 
+resp_time_result = pd.DataFrame(resp_time)
+
+resp_time_result.to_csv('resp_time.csv')
+
 """"
 #response time old (mean over all values)
 
@@ -71,6 +75,10 @@ for i in cpds:
 print('shifts')
 print(shifts)
 
+shift_result = pd.DataFrame(shifts)
+
+shift_result.to_csv('shifts.csv')
+
 #processing time
 
 proc_time = dict({"cpds": [2, 2, 8, 8], "delay": [0, 2, 0, 2], "median": []})
@@ -92,6 +100,10 @@ for i in cpds:
     proc_time["median"].append(proct_median[1])
 print('processing time')
 print(proc_time)
+
+proc_time_result = pd.DataFrame(proc_time)
+
+proc_time_result.to_csv('proc_time.csv')
 
 #error rate
 
@@ -120,3 +132,7 @@ for i in cpds:
 
 print('error_rate')
 print(error_rate)
+
+error_rate_result = pd.DataFrame(error_rate)
+
+error_rate_result.to_csv('error_rate.csv')
