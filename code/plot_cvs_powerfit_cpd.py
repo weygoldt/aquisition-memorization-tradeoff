@@ -58,13 +58,13 @@ ms_2 = mean_sem(df_2)
 popt0, pcov = curve_fit(func_powerlaw, ms_0.switches_means, ms_0.tpertrial_means, method="trf", maxfev=50000)
 popt2, pcov = curve_fit(func_powerlaw, ms_2.switches_means, ms_2.tpertrial_means, method="trf", maxfev=50000)
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(12*ps.cm, 12*ps.cm), constrained_layout=True)
 plot_errorbars(ms_0, ax, color=colors[1])
 plot_errorbars(ms_2, ax, color=colors[3])
 
 x = np.linspace(ms_2.switches_means.min()-0.1, ms_2.switches_means.max()+2, 1000)
-ax.plot(x, func_powerlaw(x, *popt0), color=colors2[2], label='0 cpd', lw=2, zorder=10)
-ax.plot(x, func_powerlaw(x, *popt2), color=colors2[3], label='2 cpd', lw=2, zorder=10)
+ax.plot(x, func_powerlaw(x, *popt0), color=colors2[2], label='2 cpd fit', lw=2, zorder=10)
+ax.plot(x, func_powerlaw(x, *popt2), color=colors2[3], label='8 cpd fit', lw=2, zorder=10)
 
 axins = inset_axes(ax, 3, 2.5, loc=1) # zoom = 6
 plot_errorbars(ms_0, axins, color=colors[1])
