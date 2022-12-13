@@ -5,20 +5,22 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from IPython import embed
 
-df = pd.read_csv('../data_processed/cvs.csv')
+df = pd.read_csv('../data_processed/cvs.csv', delimiter=';', header=0)
 cpds = [2,8]
 delay = [0,2]
-names = ['eva','Lorenz','Patrick', 'VP2', 'VP5']
+names = ['eva','Lorenz','Patrick', 'Sofie', 'VP2', 'vp4', 'VP5', 'vp6', 'VP7']
+
+print(df)
 
 #response time
 
 #create dictionary with references to cpds and delay list (so it's soft-coded) and empty list to fill in values
-resp_time = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "mean": [], "subj": []})
+resp_time = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "mean": [], "subj": []})
 
 for i in cpds:
+    print(i)
+    #print(df['cpd'])
     subdf = df[df.cpd == i]
-
-    #respt_means = np.ones([2, len(names)])
 
     for name in names:
         subsubdf = subdf[subdf.subj == name]
@@ -54,7 +56,7 @@ print(resp_time)
 """
 #shifts
 
-shifts = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "mean": [], "subj": []})
+shifts = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "mean": [], "subj": []})
 
 for i in cpds:
     subdf = df[df.cpd == i]
@@ -78,7 +80,7 @@ shift_result.to_csv('shifts.csv')
 
 #processing time
 
-proc_time = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "mean": [], "subj": []})
+proc_time = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "mean": [], "subj": []})
 
 for i in cpds:
     subdf = df[df.cpd == i]
@@ -102,7 +104,7 @@ proc_time_result.to_csv('proc_time.csv')
 
 #error rate
 
-error_rate = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "err_rate": [], "subj": []})
+error_rate = dict({"cpds": [cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[0],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1],cpds[1]], "delay": [delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1],delay[0],delay[1]], "err_rate": [], "subj": []})
 
 for i in cpds:
     subdf = df[df.cpd == i]
