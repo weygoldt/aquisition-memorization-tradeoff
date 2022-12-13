@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def figsave(path: str) -> None:
-    plt.savefig(f"{path}.svg")
-    plt.savefig(f"{path}.pdf")
+def figsave(name: str) -> None:
+    plt.savefig(f"../figs/{name}.svg")
+    plt.savefig(f"../figs/{name}.pdf")
 
 def exec_timer(function):
     """

@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import cmocean
 import cmocean.cm as cmo
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
@@ -26,13 +27,26 @@ def getindex(df):
     sem = []
     names = []
     for name in np.unique(df.subj):
-        print(np.min(df.strat_idx[df.subj==name]))
-        print(np.max(df.strat_idx[df.subj==name]))
-        mean.append(np.mean(df.strat_idx[df.subj==name]))
-        sem.append(np.std(df.strat_idx[df.subj==name]))
+        
+        # get all data that survives the log transform
+        data = np.log10(df.strat_idx[df.subj==name])[~np.isinf(np.log10(df.strat_idx[df.subj==name]))]
+        m = np.mean(data)
+        mean.append(np.mean(m))
+        sem.append(np.std(data))
         names.append(name)
 
-    return mean, sem, names
+    sem = np.asarray(sem)
+    mean = np.asarray(mean)
+
+    # normalize by mean
+    mean = mean - mean.min()
+
+    out = pd.DataFrame({'name': names,
+        'mean': mean, 
+        'sem': sem,
+    })
+
+    return out
 
 if __name__ == "__main__":
     
@@ -42,13 +56,33 @@ if __name__ == "__main__":
     df = dataimport(dataroot, processed_dataroot)
     colors = mcolors.TABLEAU_COLORS
 
-    mean, sem, names = getindex(df)
+    data = getindex(df)
+    newdata = data.sort_values(by=['mean'], ascending=True).reset_index()
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(12*ps.cm, 12*ps.cm), constrained_layout=True)
 
-    for i, name in enumerate(names):
-        plt.errorbar(mean[i], i, xerr=sem[i], fmt='bo')
+    newcmap = cmocean.tools.crop_by_percent(cmo.ice, 20, which='max', N=None)
+    colors = newcmap(np.linspace(0,1,9))
+    for i, name in enumerate(newdata.name):
+        plt.errorbar(newdata['mean'][i], i, xerr=newdata['sem'][i], fmt='o', label=name, c=colors[i], capsize=3)
 
-    ax.set_xlim(0,1)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    #ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
 
+    # ax.get_xaxis().set_ticks([])
+    ax.get_yaxis().set_ticks([])
+    ax.set_xticks(np.arange(-0.5, 3.1, 0.5))
+    #ax.set_yticks(np.arange(0, 10, 2))
+    #ax.spines.left.set_bounds((0, 9))
+    ax.spines.bottom.set_bounds((-0.5, 3))
+    #ax.set_xlim(0,1)
+    # ax.legend()
+
+    plt.text(0.05, 0.02, 'aqu.', fontsize=14, transform=plt.gcf().transFigure)
+    plt.text(0.86, 0.02, 'mem.', fontsize=14, transform=plt.gcf().transFigure)
+    
+    ax.set_ylabel('subjects')
+    ax.set_xlabel('strat. index')
     plt.show()
