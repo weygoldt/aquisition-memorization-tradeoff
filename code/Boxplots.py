@@ -19,7 +19,7 @@ proc_time = pd.read_csv('proc_time.csv', header=0)
 shifts = pd.read_csv('shifts.csv', header=0)
 #shifts.drop(["NaN"], inplace=True)
 
-#boxplotting
+#boxplotting all
 fig, ax = plt.subplots()
 sns.boxplot(x='cpds', y='mean', hue='delay', data=resp_time)
 ax.set_ylabel('response time [s]')
