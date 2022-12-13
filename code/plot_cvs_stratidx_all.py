@@ -14,7 +14,7 @@ from scipy.optimize import curve_fit
 from scipy.stats import wilcoxon
 
 from cvs_preprocessing import dataimport
-from modules.functions import bound_logistic
+from modules.functions import bound_logistic, figsave
 from modules.plotstyle import PlotStyle
 from plot_cvs_powerfit_all import func_powerlaw, mean_sem
 
@@ -39,7 +39,7 @@ def getindex(df):
     mean = np.asarray(mean)
 
     # normalize by mean
-    mean = mean - mean.min()
+    # mean = mean - mean.min()
 
     out = pd.DataFrame({'name': names,
         'mean': mean, 
@@ -73,16 +73,13 @@ if __name__ == "__main__":
 
     # ax.get_xaxis().set_ticks([])
     ax.get_yaxis().set_ticks([])
-    ax.set_xticks(np.arange(-0.5, 3.1, 0.5))
-    #ax.set_yticks(np.arange(0, 10, 2))
-    #ax.spines.left.set_bounds((0, 9))
-    ax.spines.bottom.set_bounds((-0.5, 3))
-    #ax.set_xlim(0,1)
-    # ax.legend()
+    ax.set_xticks(np.arange(-3.5, -0.4, 0.5))
+    ax.spines.bottom.set_bounds(-3.5, -0.5)
 
     plt.text(0.05, 0.02, 'aqu.', fontsize=14, transform=plt.gcf().transFigure)
     plt.text(0.86, 0.02, 'mem.', fontsize=14, transform=plt.gcf().transFigure)
     
     ax.set_ylabel('subjects')
     ax.set_xlabel('strat. index')
+    figsave('stratidx')
     plt.show()
