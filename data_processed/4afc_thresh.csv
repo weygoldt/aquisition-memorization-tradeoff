@@ -1,0 +1,13 @@
+,name,exclude,cond,thresh
+0,Lorenz,False,high,0.07
+1,Patrick,False,high,0.078
+5,VP5,False,high,0.073
+7,VP7,False,high,0.049
+8,eva,False,high,0.044
+9,vp4,False,high,0.074
+10,Lorenz,False,low,0.057
+11,Patrick,False,low,0.088
+15,VP5,False,low,0.051
+17,VP7,False,low,0.033
+18,eva,False,low,0.034
+19,vp4,False,low,0.058

@@ -58,6 +58,7 @@ if __name__ == "__main__":
 
     data = getindex(df)
     newdata = data.sort_values(by=['mean'], ascending=True).reset_index()
+    newdata.to_csv('../data_processed/stratidx.csv')
 
     fig, ax = plt.subplots(figsize=(12*ps.cm, 12*ps.cm), constrained_layout=True)
 
