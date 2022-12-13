@@ -32,6 +32,7 @@ for i in cpds:
     print(f'shifts, delay {i}cpds')
     print(stats)
 
+    #mean of 0s and 2s delay values per person
     for name in names:
         subsubdf = subdf[subdf.subj == name]
 
@@ -40,7 +41,7 @@ for i in cpds:
         shifts_cpds['mean'].append(mean)
         shifts_cpds['subj'].append(name)
 
-print(shifts_cpds)
+#print(shifts_cpds)
 
 shifts = pd.DataFrame(shifts_cpds)
 #shifts.to_csv('shifts_cpds.csv')
