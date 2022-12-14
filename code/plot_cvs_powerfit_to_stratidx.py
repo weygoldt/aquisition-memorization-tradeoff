@@ -20,9 +20,8 @@ from modules.plotstyle import PlotStyle
 
 colors = mcolors.TABLEAU_COLORS
 
-newcmap = cmocean.tools.crop_by_percent(cmo.thermal, 20, which="max", N=None)
+newcmap = cmocean.tools.crop_by_percent(cmo.thermal, 20, which='max', N=None)
 colors = newcmap(np.linspace(0, 1, 9))
-
 
 def mean_sem(df):
     # means and sem for trial duration
@@ -49,63 +48,62 @@ def mean_sem(df):
 def func_powerlaw(x, m, c, c0):
     return c0 + x**m * c
 
+def func_powerlaw_lin(x,m,c,c0):
+    return np.log10(c0) + m * c * np.log10(x)
 
 def fit_power(x, y):
-
+    
     popt, pcov = curve_fit(func_powerlaw, x, y, method="trf", maxfev=50000)
     return popt, pcov
-
+    
 
 def plot_errorbars(df_all, ax):
 
     for name, color in zip(df_all.names, colors):
         minidf = df_all[df_all.names == name]
-        ax.errorbar(
-            minidf.switches_means,
-            minidf.tpertrial_means,
-            xerr=minidf.switches_sems,
-            yerr=minidf.tpertrial_sems,
-            fmt="bo",
+        ax.plot(
+            np.log10(minidf.switches_means),
+            np.log10(minidf.tpertrial_means),
+            marker='o',
             label=name,
             color=color,
         )
 
 
-def plot_powerfit_1(df):
-
+def plot_powerfit_1(df): 
+    
     df_all = mean_sem(df)
     print(df_all)
     popt, pcov = fit_power(df_all.switches_means, df_all.tpertrial_means)
-    fig, ax = plt.subplots(figsize=(12 * ps.cm, 12 * ps.cm), constrained_layout=True)
-
+    fig, ax = plt.subplots(figsize=(12*ps.cm, 12*ps.cm), constrained_layout=True)
+   
     plot_errorbars(df_all, ax)
 
-    x = np.linspace(
-        df_all.switches_means.min() - 0.2, df_all.switches_means.max() + 2, 1000
-    )
-    ax.plot(x, func_powerlaw(x, *popt), c="k", lw=1.5, zorder=-1, ls="dashed")
+    x = np.linspace(df_all.switches_means.min(), df_all.switches_means.max(), 1000)
+    ax.plot(np.log10(x), np.log10(func_powerlaw(x, *popt)), c='k', lw=1.5, zorder = -1, ls='dashed')
 
-    axins = inset_axes(ax, 2, 2, loc=1)  # zoom = 6
-    axins.plot(x, func_powerlaw(x, *popt), c="k", lw=1.5, zorder=-1, ls="dashed")
-    plot_errorbars(df_all, axins)
-    x1, x2, y1, y2 = 2.5, 15, 1, 5
-    axins.set_xlim(x1, x2)
-    axins.set_ylim(y1, y2)
-    axins.tick_params(
-        left=False, right=False, labelleft=False, labelbottom=False, bottom=False
-    )
-
-    mark_inset(ax, axins, loc1=2, loc2=4, fc="none", ec="0.5")
-    fig.supxlabel("number of switches", fontsize=14)
-    fig.supylabel("processing time [s]", fontsize=14)
-    ax.set_ylim(0, 28)
-    ax.set_xlim(0, 15)
-    figsave("cvs_all_powerfit")
+    #axins = inset_axes(ax, 2, 2, loc=1) # zoom = 6
+    #axins.loglog(x, func_powerlaw(x, *popt), c='k', lw=1.5, zorder = -1, ls='dashed')
+    #plot_errorbars(df_all, axins)
+    #x1, x2, y1, y2 = 2.5, 15, 1, 5
+    #axins.set_xlim(x1, x2)
+    #axins.set_ylim(y1, y2)
+    #axins.tick_params(left = False, right = False , labelleft = False, labelbottom = False, bottom = False)
+#
+    #mark_inset(ax, axins, loc1=2, loc2=4, fc="none", ec="0.5")
+    plt.rcParams.update({
+        "text.usetex": True,
+        "font.family": "sans-serif"
+    })
+    ax.set_xlabel(r'$\log_{10}$ # of switches', fontsize=14)
+    ax.set_ylabel(r'$\log_{10}$ processing time [s]', fontsize=14)
+    print(*popt)    
+    figsave('cvs_all_powerfit_to_stratidx')
     plt.show()
 
 
 if __name__ == "__main__":
-
+    
     # init standardized plotstyle
     ps = PlotStyle()
 
@@ -113,5 +111,5 @@ if __name__ == "__main__":
     dataroot = Path("../data/cvs")
     processed_dataroot = Path("../data_processed")
     df = dataimport(dataroot, processed_dataroot)
-
+    
     plot_powerfit_1(df)

@@ -78,11 +78,11 @@ if __name__ == "__main__":
     ax.spines['left'].set_visible(False)
 
     ax.get_yaxis().set_ticks([])
-    ax.set_xticks(np.arange(-3.5, -0.4, 0.5))
-    ax.spines.bottom.set_bounds(-3.5, -0.5)
+    ax.set_xticks(np.arange(-2, 1.6, 0.5))
+    ax.spines.bottom.set_bounds(-2, 1.5)
 
-    plt.text(0.05, 0.02, 'aqu.', fontsize=14, transform=plt.gcf().transFigure)
-    plt.text(0.86, 0.02, 'mem.', fontsize=14, transform=plt.gcf().transFigure)
+    plt.text(0.09, 0.02, 'aqu. ⟵', fontsize=14, transform=plt.gcf().transFigure)
+    plt.text(0.792, 0.02, '⟶ mem.', fontsize=14, transform=plt.gcf().transFigure)
 
     ax.legend(bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left", borderaxespad=0, ncol=3)
     ax.set_ylabel('subjects')

@@ -48,7 +48,7 @@ def dataimport(dataroot: str, processed_dataroot: str) -> pd.DataFrame:
 #    data.strat_idx = 1-data.strat_idx/(0.5*(data.strat_idx.max()-data.strat_idx.min()))
      
     #data["strat_idx"] = np.log10(norm(data.tpertrial))/np.log10(norm(data.switches))
-    data["strat_idx"] = norm(norm(data.tpertrial)/norm(data.switches))
+    data["strat_idx"] = norm(data.tpertrial)/norm(data.switches)
     
     # drop cells where switches where 0
     data = data[data.switches != 0]

@@ -74,11 +74,11 @@ if __name__ == "__main__":
 
     # ax.get_xaxis().set_ticks([])
     ax.get_yaxis().set_ticks([])
-    ax.set_xticks(np.arange(-3.5, -0.4, 0.5))
-    ax.spines.bottom.set_bounds(-3.5, -0.5)
+    ax.set_xticks(np.arange(-2, 1.6, 0.5))
+    ax.spines.bottom.set_bounds(-2, 1.5)
 
-    plt.text(0.05, 0.02, 'aqu.', fontsize=14, transform=plt.gcf().transFigure)
-    plt.text(0.86, 0.02, 'mem.', fontsize=14, transform=plt.gcf().transFigure)
+    plt.text(0.07, 0.02, 'aqu. ⟵', fontsize=14, transform=plt.gcf().transFigure)
+    plt.text(0.792, 0.02, '⟶ mem.', fontsize=14, transform=plt.gcf().transFigure)
     
     ax.set_ylabel('subjects')
     ax.set_xlabel('strat. index')
