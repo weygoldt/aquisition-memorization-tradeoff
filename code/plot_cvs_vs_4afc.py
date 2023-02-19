@@ -48,6 +48,6 @@ for i, name in enumerate(names):
 
 #ax.plot(strat, meanthresh)
 ax.set_xlabel('mean detection threshold')
-ax.set_ylabel('strat. index')
+ax.set_ylabel('strategy index')
 figsave('cvs_vs_4afc')
 plt.show()

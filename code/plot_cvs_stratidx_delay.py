@@ -86,6 +86,6 @@ if __name__ == "__main__":
 
     ax.legend(bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left", borderaxespad=0, ncol=3)
     ax.set_ylabel('subjects')
-    ax.set_xlabel('strat. index')
+    ax.set_xlabel('strategy index')
     figsave('stratidx_delay')
     plt.show()

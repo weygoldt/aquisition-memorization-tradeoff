@@ -1,0 +1,129 @@
+\documentclass[12pt,a4paper]{article} 
+\usepackage[left=25mm, right=25mm, top=25mm, bottom=25mm]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{caption}
+%\usepackage{subcaption} %  for subfigures environments
+\usepackage{float}
+\usepackage{amssymb} % für mathematische Symbole
+\usepackage{amsmath} % für align
+\usepackage[]{acronym} % Paket fürs Abkürzungsverzeichnis
+\usepackage{multicol} % for multicolumn lists
+\usepackage[nottoc]{tocbibind} % Verzeichnisse in Inhaltsverzeichnis einfügen
+\usepackage[onehalfspacing]{setspace} % für 1.5pt Zeilenabstand (nicht in Abbildungen, wenn caption-package geladen ist)
+\usepackage[labelfont=bf]{caption} 
+%\captionsetup{format=hang, labelfont=bf, textfont=small, justification=raggedright, singlelinecheck=false}
+\usepackage{adjustbox} % needed to fit large tabular on one page
+\usepackage{wrapfig} % needed to wrap text around figure
+\usepackage{lipsum} 
+\usepackage{multirow} % entry in tabular over multiple rows
+\usepackage{xcolor} % change colors of text
+\usepackage{svg}
+\usepackage{csquotes}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}} % braucht man für Linien bei Titelseite
+% Citation setup ---------------------------------------------------------------------
+\usepackage[]{hyperref}         % To make clickable links
+  \hypersetup{hidelinks,}         % To draw no boxes around the links
+\usepackage[                    % Citation setup  
+    backend=biber,                % Citation backend
+    style=authoryear-comp,        % Citation format
+    maxnames=1,                   % Max number of names displayed in text
+    %sortlocale=de_DE,             % Sorts by german conventions (ß = ss)
+    natbib=true,                  % Enables \citep and \citet. Use \parencite and \textcite in future
+    url=false,                    % Disaples url
+    doi=true,                     % To print the doi
+    eprint=false                  % Disables link to eprint (?)
+]{biblatex}
+\addbibresource{hardiess.bib} % Where the bibliography file is
+
+\setlength{\parindent}{0pt} % verhindert Einrücken nach Absatz
+
+\begin{document}
+% Titelseite *************************************************
+\title{	\normalsize 
+			%\HRule{1pt} \\						% Upper rule
+			\LARGE \textbf{The influence of spatial frequency and retention on the trade-off between working memory and eye movements in the paradigm of comparative visual search}
+			%\HRule{1pt} 
+            \\ [0.5cm]		% Lower rule + 0.5cm spacing
+			\large \thedate			% Todays date
+		}
+
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+\begin{titlepage}
+
+Faculty of Science, Department of Biology\\
+Cognitive Neuroscience
+  \begin{center}
+  \vspace*{5cm}
+    {\Large \bf \thetitle}
+    
+    \vspace*{4cm}
+    \large
+    \textsc{Eberhard Karls Universit\"at T\"ubingen}\\
+    Großpraktikum WS22/23
+
+    \vfill
+ \end{center}
+    \begin{minipage}{0.9\textwidth}
+    \begin{tabular}{@{}ll}
+
+      \large\bf Authors: & \large Patrick Weygoldt, Eva Schwarzbach, Lorenz Gewert\\
+      \large\bf Supervisor: & \large Dr. Gregor Hardieß
+    \end{tabular}
+  \end{minipage}
+  
+
+  \vspace*{2cm}
+
+\end{titlepage}
+
+\pagenumbering{Roman} %{roman} for small letters
+
+%\input{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+%\listoftables
+%\newpage
+\section*{List of Abbreviations}
+%\begin{multicols}{3} % 3 Spalten erzeugen
+\addcontentsline{toc}{section}{List of Abbreviations} % in Verzeichnis einfügen ohne Nummerierung
+\begin{acronym}[4AFC] % längste acro eintragen damit aligned
+\setlength{\itemsep}{-0.1\parsep}
+\acro{}[4AFC]{4 alternative forced choice}
+\acro{}[cpd]{cycles per degree}
+\acro{}[CVS]{comparative visual search}
+\acro{}[WM]{working memory}
+
+\end{acronym}
+%\end{multicols}
+
+
+% Begin of document *******************************************
+\newpage
+
+\input{introduction}
+
+\input{methods}
+
+\input{results}
+
+\input{discussion}
+
+\newpage
+\pagebreak
+\printbibliography 
+%\input{appendix}
+
+\end{document}
+

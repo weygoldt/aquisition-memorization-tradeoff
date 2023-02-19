@@ -95,7 +95,7 @@ def plot_powerfit_1(df):
         "text.usetex": True,
         "font.family": "sans-serif"
     })
-    ax.set_xlabel(r'$\log_{10}$ # of switches', fontsize=14)
+    ax.set_xlabel(r'$\log_{10}$ number of switches', fontsize=14)
     ax.set_ylabel(r'$\log_{10}$ processing time [s]', fontsize=14)
     print(*popt)    
     figsave('cvs_all_powerfit_to_stratidx')

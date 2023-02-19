@@ -37,9 +37,9 @@ trialmean = df.groupby('trialno').mean()
 
 fig, ax = plt.subplots(3,1, sharex=True, constrained_layout=True)
 for i, name in enumerate(np.unique(df.subj)):
-    ax[0].plot(df.trialno[df.subj == name], df.switches[df.subj == name], lw=1, c='lightgray')
-    ax[1].plot(df.trialno[df.subj == name], df.tpertrial[df.subj == name], lw=1, c='lightgray')
-    ax[2].plot(steps[names==name], err[names==name], lw=1, c='lightgray')
+    ax[0].plot(df.trialno[df.subj == name], df.switches[df.subj == name], lw=1, c='gray')
+    ax[1].plot(df.trialno[df.subj == name], df.tpertrial[df.subj == name], lw=1, c='gray')
+    ax[2].plot(steps[names==name], err[names==name], lw=1, c='gray')
 
 
 ax[0].plot(trialmean.index, trialmean.switches, lw=2, color='k')   
@@ -47,11 +47,13 @@ ax[1].plot(trialmean.index, trialmean.tpertrial, lw=2, color='k')
 ax[2].plot(mean_steps, mean_err, lw=2, c='k')
 ax[0].set_ylabel('# switches')
 ax[1].set_ylabel('trial dur.')
-ax[2].set_ylabel(f'% correct')
-ax[2].set_xlabel('# trial')
+ax[2].set_ylabel(f'prop. correct')
+ax[2].set_xlabel('number of trials')
 
 
 fig.align_labels()
-plt.savefig('trial_stability.svg')
+from modules.functions import figsave
+
+figsave('../figs/trial_stability')
 plt.show()
 

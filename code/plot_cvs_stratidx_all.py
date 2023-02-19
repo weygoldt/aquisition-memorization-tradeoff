@@ -81,6 +81,6 @@ if __name__ == "__main__":
     plt.text(0.792, 0.02, '⟶ mem.', fontsize=14, transform=plt.gcf().transFigure)
     
     ax.set_ylabel('subjects')
-    ax.set_xlabel('strat. index')
+    ax.set_xlabel('strategy index')
     figsave('stratidx')
     plt.show()
